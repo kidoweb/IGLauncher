@@ -1,41 +1,102 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyArena API Data</title>
-    <script>
-        // Функция для получения данных с MyArena API
-        async function fetchMyArenaData() {
-            const apiUrl = 'https://www.myarena.ru/api.php?query=online&token=18ed44fb45850bf8bd5eef8c61566483';
-            
-            try {
-                // Отправляем запрос к MyArena API
-                const response = await fetch(apiUrl);
-                
-                // Проверяем, что запрос успешен
-                if (!response.ok) {
-                    throw new Error(`Ошибка запроса: ${response.status}`);
-                }
+    <title>Interstellar Gateway Launcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="localization.js"></script>
 
-                // Получаем данные как JSON
-                const data = await response.json();
-
-                // Отображаем данные на странице в виде JSON
-                document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-
-            } catch (error) {
-                console.error('Ошибка получения данных:', error);
-                document.getElementById('output').textContent = 'Ошибка получения данных: ' + error.message;
-            }
-        }
-
-        // Выполняем запрос к API при загрузке страницы
-        window.onload = fetchMyArenaData;
-    </script>
 </head>
+
 <body>
-    <h1>Данные с MyArena API</h1>
-    <pre id="output">Загрузка данных...</pre>
+
+    <div class="app-window">
+        <!-- Title bar with control buttons -->
+        <div class="title-bar">
+            <h1>Interstellar Gateway Launcher</h1>
+            <div class="controls">
+                <button class="close"></button>
+            </div>
+        </div>
+
+        <!-- Launcher content -->
+        <div class="launcher">
+            <!-- Sidebar with menu options -->
+            <div class="sidebar">
+                <a href="#" class="menu-item active" data-section="play">Играть</a>
+                <a href="#" class="menu-item" data-section="shop">Магазин</a>
+                <a href="#" class="menu-item" data-section="news">Новости</a>
+                <a href="https://discord.gg/sn28ff4Zwq" target="_blank" class="menu-item">Discord</a>
+                <a href="#" class="menu-item" data-section="settings">Настройки</a>
+            </div>
+
+            <!-- Main content area for 'Играть' -->
+            <div class="main-content" id="play-section">
+                <!-- Server Card (Играть) -->
+                <div class="server-item">
+                    <div class="server-info">
+                        <h2>GALACTIC CONFLICT</h2>
+                        <p class="status">
+                            Статус: <span id="server-status" class="status-online">Онлайн</span>
+                        </p>
+                        <p class="status">
+                            Онлайн игроков: <span id="server-online-count">42</span>
+                        </p>
+                    </div>
+                    <button class="play-button">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Placeholder for 'Магазин' -->
+            <div class="main-content" id="shop-section" style="display: none;">
+                <h1>Магазин</h1>
+                <p class="coming-soon">В разработке...</p>
+            </div>
+
+            <!-- Placeholder for 'Новости' -->
+            <div class="main-content" id="news-section" style="display: none;">
+                <h1>Новости</h1>
+                <p class="coming-soon">В разработке...</p>
+            </div>
+
+            <!-- Placeholder for 'Настройки' -->
+            <div class="main-content" id="settings-section" style="display: none;">
+                <div class="settings-section">
+                    <!-- Existing settings -->
+                    <div class="settings-item">
+                        <label for="language-select">Смена языка</label>
+                        <select id="language-select">
+                            <option value="ru" data-icon="https://img.icons8.com/color/50/russian-federation-circular.png">Русский</option>
+                            <option value="en" data-icon="https://img.icons8.com/color/50/great-britain-circular.png">English</option>
+                            <option value="be" data-icon="https://img.icons8.com/color/50/belarus-circular.png">Беларуская</option>
+                            <option value="uk" data-icon="https://img.icons8.com/color/50/ukraine-circular.png">Українська</option>
+                        </select>
+                        
+                        
+                    </div>
+                    <div class="settings-item">
+                        <label>Отключить анимацию партиклов</label>
+                        <input type="checkbox" id="toggle-particles">
+                    </div>
+
+                    <!-- Option for minimizing launcher -->
+                    <div class="settings-item">
+                        <label>Сворачивать лаунчер после запуска игры</label>
+                        <input type="checkbox" id="minimize-launcher">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Particle effects for background animation -->
+        <div class="particles" id="particles-container"></div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
