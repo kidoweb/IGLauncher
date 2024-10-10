@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyArena API Data</title>
+    <script>
+        // Функция для получения данных с MyArena API
+        async function fetchMyArenaData() {
+            const apiUrl = 'https://www.myarena.ru/api.php?query=online&token=18ed44fb45850bf8bd5eef8c61566483';
+            
+            try {
+                // Отправляем запрос к MyArena API
+                const response = await fetch(apiUrl);
+                
+                // Проверяем, что запрос успешен
+                if (!response.ok) {
+                    throw new Error(`Ошибка запроса: ${response.status}`);
+                }
+
+                // Получаем данные как JSON
+                const data = await response.json();
+
+                // Отображаем данные на странице в виде JSON
+                document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                console.error('Ошибка получения данных:', error);
+                document.getElementById('output').textContent = 'Ошибка получения данных: ' + error.message;
+            }
+        }
+
+        // Выполняем запрос к API при загрузке страницы
+        window.onload = fetchMyArenaData;
+    </script>
+</head>
+<body>
+    <h1>Данные с MyArena API</h1>
+    <pre id="output">Загрузка данных...</pre>
+</body>
+</html>
